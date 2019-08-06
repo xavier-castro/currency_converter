@@ -5,7 +5,7 @@ import Home from './screens/Home';
 
 EStyleSheet.build({
   $primaryBlue: '#4F6D7A',
-  $white: '#fff',
+  $white: '#ffffff',
 });
 
 export default () => <Home />;
