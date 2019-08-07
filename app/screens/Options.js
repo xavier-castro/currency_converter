@@ -1,7 +1,8 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  ScrollView, SafeAreaView, StatusBar, Platform,
+  ScrollView, SafeAreaView, StatusBar, Platform, Linking,
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
@@ -22,7 +23,7 @@ class Options extends React.Component {
   };
 
   handleSitePress = () => {
-    console.log('Press site');
+    Linking.openURL('http://devcollinreal.me').catch(() => alert('An error occurred'));
   };
 
   render() {
