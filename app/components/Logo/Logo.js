@@ -1,4 +1,6 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View, Text, Keyboard, Animated, StyleSheet, Platform,
 } from 'react-native';
@@ -8,11 +10,17 @@ import styles from './styles';
 const ANIMATION_DURATION = 250; // 250 milliseconds
 
 class Logo extends React.Component {
+  static propTypes = {
+    tintColor: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
 
-    this.containerImageWidth = new Animated.Value(styles.$largeContainerSize);
-    this.imageWidth = new Animated.Value(styles.$largeImageSize);
+    this.state = {
+      containerImageWidth: new Animated.Value(styles.$largeContainerSize),
+      imageWidth: new Animated.Value(styles.$largeImageSize),
+    };
   }
 
   componentDidMount() {
@@ -30,12 +38,12 @@ class Logo extends React.Component {
 
   keyboardShow = () => {
     Animated.parallel([
-      Animated.timing(this.containerImageWidth, {
+      Animated.timing(this.state.containerImageWidth, {
         toValue: styles.$smallContainerSize,
         duration: ANIMATION_DURATION,
       }),
 
-      Animated.timing(this.imageWidth, {
+      Animated.timing(this.state.imageWidth, {
         toValue: styles.$smallImageSize,
         duration: ANIMATION_DURATION,
       }),
@@ -44,12 +52,12 @@ class Logo extends React.Component {
 
   keyboardHide = () => {
     Animated.parallel([
-      Animated.timing(this.containerImageWidth, {
+      Animated.timing(this.state.containerImageWidth, {
         toValue: styles.$largeContainerSize,
         duration: ANIMATION_DURATION,
       }),
 
-      Animated.timing(this.imageWidth, {
+      Animated.timing(this.state.imageWidth, {
         toValue: styles.$largeImageSize,
         duration: ANIMATION_DURATION,
       }),
@@ -59,10 +67,14 @@ class Logo extends React.Component {
   render() {
     const containerImageStyle = [
       styles.containerImage,
-      { width: this.containerImageWidth, height: this.containerImageWidth },
+      { width: this.state.containerImageWidth, height: this.state.containerImageWidth },
     ];
 
-    const imageStyle = [styles.logo, { width: this.imageWidth }];
+    const imageStyle = [
+      styles.logo,
+      { width: this.state.imageWidth },
+      this.props.tintColor ? { tintColor: this.props.tintColor } : null,
+    ];
 
     return (
       <View style={styles.container}>
