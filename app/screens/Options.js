@@ -8,6 +8,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 import { ListItem, Separator } from '../components/List';
+import { connectAlert } from '../components/Alert';
 
 const ICON_PREFIX = Platform.OS === 'ios' ? 'ios' : 'md';
 const ICON_COLOR = '#868686';
@@ -16,6 +17,7 @@ const ICON_SIZE = 23;
 class Options extends React.Component {
   static propTypes = {
     navigation: PropTypes.object,
+    alertWithType: PropTypes.func,
   };
 
   handleThemesPress = () => {
@@ -23,7 +25,7 @@ class Options extends React.Component {
   };
 
   handleSitePress = () => {
-    Linking.openURL('http://devcollinreal.me').catch(() => alert('An error occurred'));
+    Linking.openURL('http://devcollinreal.me').catch(() => this.props.alertWithType('error', 'Sorry!', "devcollinreal.me can't be open right now"));
   };
 
   render() {
@@ -52,4 +54,4 @@ class Options extends React.Component {
   }
 }
 
-export default Options;
+export default connectAlert(Options);
