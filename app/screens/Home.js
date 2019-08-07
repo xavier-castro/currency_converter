@@ -11,7 +11,7 @@ import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Texts';
 import { Header } from '../components/Header';
 
-import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
+import { swapCurrency, changeCurrencyAmount, getInitialConversion } from '../actions/currencies';
 
 class Home extends React.Component {
   static propTypes = {
@@ -25,6 +25,10 @@ class Home extends React.Component {
     lastConvertedDate: PropTypes.object,
     primaryColor: PropTypes.string,
   };
+
+  componentWillMount() {
+    this.props.dispatch(getInitialConversion());
+  }
 
   handlePressBaseCurrency = () => {
     this.props.navigation.navigate('CurrencyList', { title: 'Base Currency', type: 'base' });
