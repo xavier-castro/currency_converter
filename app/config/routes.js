@@ -6,19 +6,35 @@ import CurrencyList from '../screens/CurrencyList';
 import Options from '../screens/Options';
 import Themes from '../screens/Themes';
 
-const MainStack = createStackNavigator(
+const HomeStack = createStackNavigator(
   {
     Home: { screen: Home, navigationOptions: { header: () => null } },
-    CurrencyList: {
-      screen: CurrencyList,
-      navigationOptions: ({ navigation }) => ({
-        headerTitle: navigation.state.params.title,
-      }),
-    },
+    Options: { screen: Options, navigationOptions: { headerTitle: 'Options' } },
+    Themes: { screen: Themes, navigationOptions: { headerTitle: 'Themes' } },
+  },
+  {
+    headerMode: 'screen', // Makes transition animation smoother
+  },
+);
+
+const CurrencyListStack = createStackNavigator({
+  CurrencyList: {
+    screen: CurrencyList,
+    navigationOptions: ({ navigation }) => ({
+      headerTitle: navigation.state.params.title,
+    }),
+  },
+});
+
+const MainStack = createStackNavigator(
+  {
+    Home: { screen: HomeStack },
+    CurrencyList: { screen: CurrencyListStack },
   },
   {
     mode: 'modal',
     cardStyle: { paddingTop: StatusBar.currentHeight },
+    headerMode: 'none',
   },
 );
 

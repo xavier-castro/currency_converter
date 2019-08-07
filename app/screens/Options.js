@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ScrollView, SafeAreaView, StatusBar, Platform,
 } from 'react-native';
@@ -12,8 +13,12 @@ const ICON_COLOR = '#868686';
 const ICON_SIZE = 23;
 
 class Options extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+  };
+
   handleThemesPress = () => {
-    console.log('Press themes');
+    this.props.navigation.navigate('Themes');
   };
 
   handleSitePress = () => {
