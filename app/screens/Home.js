@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StatusBar, KeyboardAvoidingView } from 'react-native';
@@ -8,6 +9,8 @@ import { InputWithButton } from '../components/TextInput';
 import { ClearButton } from '../components/Buttons';
 import { LastConverted } from '../components/Texts';
 import { Header } from '../components/Header';
+
+import { swapCurrency, changeCurrencyAmount } from '../actions/currencies';
 
 const TEMP_BASE_CURRENCY = 'USD';
 const TEMP_QUOTE_CURRENCY = 'GBP';
@@ -29,12 +32,12 @@ class Home extends React.Component {
     this.props.navigation.navigate('CurrencyList', { title: 'Quote Currency' });
   };
 
-  handleTextChange = (text) => {
-    console.log('Change text', text);
+  handleTextChange = (amount) => {
+    console.log(changeCurrencyAmount(amount));
   };
 
   handleSwapCurrency = () => {
-    console.log('Press swap currency');
+    console.log(swapCurrency());
   };
 
   handleOptionsPress = () => {
@@ -53,7 +56,7 @@ class Home extends React.Component {
             buttonText={TEMP_BASE_CURRENCY}
             defaultValue={TEMP_BASE_PRICE}
             keyboardType="numeric"
-            onChangeType={this.handleTextChange}
+            onChangeText={this.handleTextChange}
           />
           <InputWithButton
             onPress={this.handlePressQuoteCurrency}
